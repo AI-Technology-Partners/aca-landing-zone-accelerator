@@ -1,4 +1,3 @@
-
 variable "workloadName" {
   type = string
   validation {
@@ -35,6 +34,12 @@ variable "hubVnetAddressPrefixes" {}
 variable "enableBastion" {
   default = true
   type    = bool
+}
+
+variable "enableFirewall" {
+  default     = false
+  type        = bool
+  description = "Enable Azure Firewall deployment. Set to false to reduce costs (~$700/month savings)"
 }
 
 variable "bastionSubnetAddressPrefixes" {}
@@ -308,7 +313,7 @@ variable "workloadProfiles" {
 }
 
 variable "routeSpokeTrafficInternally" {
-  type = bool
-  default = false
+  type        = bool
+  default     = false
   description = "Optional, default value is false. If true, the spoke network will route spoke-internal traffic within the spoke network. If false, traffic will be sent to the hub network."
 }

@@ -24,16 +24,16 @@ module "spoke" {
   infraSubnetAddressPrefix              = var.infraSubnetAddressPrefix
   infraSubnetName                       = var.infraSubnetName
   privateEndpointsSubnetAddressPrefix   = var.privateEndpointsSubnetAddressPrefix
-  applicationGatewaySubnetAddressPrefix = var.applicationGatewaySubnetAddressPrefix
+  applicationGatewaySubnetAddressPrefix = "" # Empty to skip Application Gateway subnet
   hubVnetId                             = module.hub.hubVnetId
-  vmSize                                = var.vmSize
-  vmAdminUsername                       = var.vmAdminUsername
-  vmAdminPassword                       = var.vmAdminPassword
-  vmLinuxSshAuthorizedKeys              = var.vmLinuxSshAuthorizedKeys
-  vmLinuxAuthenticationType             = var.vmLinuxAuthenticationType
-  vmJumpboxOSType                       = var.vmJumpboxOSType
-  jumpboxSubnetAddressPrefix            = var.vmJumpBoxSubnetAddressPrefix
-  firewallPrivateIp                     = module.hub.firewallPrivateIp
+  vmSize                                = "Standard_B2ms"    # Placeholder - VM won't be deployed
+  vmAdminUsername                       = "vmadmin"          # Placeholder - VM won't be deployed
+  vmAdminPassword                       = "TempPassword123!" # Placeholder - VM won't be deployed
+  vmLinuxSshAuthorizedKeys              = []                 # Placeholder - VM won't be deployed
+  vmLinuxAuthenticationType             = "password"         # Placeholder - VM won't be deployed
+  vmJumpboxOSType                       = "Linux"            # Placeholder - VM won't be deployed
+  jumpboxSubnetAddressPrefix            = ""                 # Empty to skip jumpbox deployment
+  firewallPrivateIp                     = ""                 # No firewall - using NSGs instead
   tags                                  = var.tags
   routeSpokeTrafficInternally           = var.routeSpokeTrafficInternally
 }
@@ -112,21 +112,22 @@ module "helloWorldApp" {
   tags                                    = var.tags
 }
 
+# Application Gateway module commented out - not needed for simplified deployment
 # If you would like to deploy an Application Gateway and have provided your IP address for KeyVault access, leave this module uncommented
 # If you would like to keep your KeyVault private, comment out this module
-module "applicationGateway" {
-  source                          = "./modules/06-application-gateway"
-  workloadName                    = var.workloadName
-  environment                     = var.environment
-  location                        = var.location
-  resourceGroupName               = module.spoke.spokeResourceGroupName
-  keyVaultName                    = module.supportingServices.keyVaultName
-  appGatewayCertificateKeyName    = var.appGatewayCertificateKeyName
-  appGatewayFQDN                  = var.appGatewayFQDN
-  appGatewayPrimaryBackendEndFQDN = module.helloWorldApp.helloWorldAppFQDN
-  appGatewaySubnetId              = module.spoke.spokeApplicationGatewaySubnetId
-  appGatewayLogAnalyticsId        = module.spoke.logAnalyticsWorkspaceId
-  appGatewayCertificatePath       = var.appGatewayCertificatePath
-  logAnalyticsWorkspaceId         = module.spoke.logAnalyticsWorkspaceId
-  tags                            = var.tags
-}
+# module "applicationGateway" {
+#   source                          = "./modules/06-application-gateway"
+#   workloadName                    = var.workloadName
+#   environment                     = var.environment
+#   location                        = var.location
+#   resourceGroupName               = module.spoke.spokeResourceGroupName
+#   keyVaultName                    = module.supportingServices.keyVaultName
+#   appGatewayCertificateKeyName    = var.appGatewayCertificateKeyName
+#   appGatewayFQDN                  = var.appGatewayFQDN
+#   appGatewayPrimaryBackendEndFQDN = module.helloWorldApp.helloWorldAppFQDN
+#   appGatewaySubnetId              = module.spoke.spokeApplicationGatewaySubnetId
+#   appGatewayLogAnalyticsId        = module.spoke.logAnalyticsWorkspaceId
+#   appGatewayCertificatePath       = var.appGatewayCertificatePath
+#   logAnalyticsWorkspaceId         = module.spoke.logAnalyticsWorkspaceId
+#   tags                            = var.tags
+# }

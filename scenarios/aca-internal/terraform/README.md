@@ -1,3 +1,43 @@
+# AITP Azure Container Apps Landing Zone for LibreChat
+
+This directory contains AITP's customized Terraform configuration for deploying Azure Container Apps Landing Zone Accelerator, specifically optimized for LibreChat deployment.
+
+## 📋 Overview
+
+AITP has modified the original Azure Container Apps Landing Zone Accelerator to:
+- Remove unnecessary components that add complexity without benefit for LibreChat deployment
+- Simplify the architecture while maintaining enterprise security and hub-spoke network topology
+- Focus on essential components needed for secure container deployment
+- Achieve cost savings as a secondary benefit (~$1,070/month reduction)
+
+## 🚀 Quick Start
+
+1. Update `clientIP` in `terraform.tfvars` with your IP address
+2. Run deployment:
+   ```bash
+   terraform init
+   terraform plan
+   terraform apply
+   ```
+
+## 📚 Documentation
+
+- [`README-SIMPLIFIED.md`](./README-SIMPLIFIED.md) - Detailed deployment guide
+- [`SIMPLIFICATION-SUMMARY.md`](./SIMPLIFICATION-SUMMARY.md) - Configuration changes summary
+- [`terraform.tfvars`](./terraform.tfvars) - Configuration variables
+
+## ⚡ Key Features
+
+- **Simplified Architecture**: Removes unnecessary complexity for LibreChat deployment
+- **LibreChat Ready**: Focused on essential components for container-based chat applications
+- **Enterprise Security**: Private networks, managed identities, Key Vault integration maintained
+- **Scalable**: Hub-spoke topology preserved for future expansion
+- **Cost Efficient**: ~$50-100/month vs ~$1,200/month (as beneficial side effect)
+
+---
+*Based on Microsoft's Azure Container Apps Landing Zone Accelerator*
+*Customized by AITP for LibreChat deployment requirements*
+
 # Azure Container Apps - Internal environment secure baseline [Terraform]
 
 This is the Terraform-based deployment guide for [Scenario 1: Azure Container Apps - Internal environment secure baseline](../README.md).
