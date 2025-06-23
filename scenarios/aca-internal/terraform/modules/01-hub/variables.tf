@@ -27,8 +27,15 @@ variable "tags" {}
 variable "vnetAddressPrefixes" {}
 
 variable "enableBastion" {
-  default = true
+  default = false
   type    = bool
+  description = "Enable Azure Bastion deployment. Set to false to reduce costs (~$140/month savings)"
+}
+
+variable "enableFirewall" {
+  default = false
+  type    = bool
+  description = "Enable Azure Firewall deployment. Set to false to reduce costs (~$700/month savings)"
 }
 
 variable "bastionSubnetAddressPrefixes" {}

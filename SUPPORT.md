@@ -1,25 +1,37 @@
-# TODO: The maintainer of this repo has not yet edited this file
-
-**REPO OWNER**: Do you want Customer Service & Support (CSS) support for this product/project?
-
-- **No CSS support:** Fill out this template with information about how to file issues and get help.
-- **Yes CSS support:** Fill out an intake form at [aka.ms/onboardsupport](https://aka.ms/onboardsupport). CSS will work with/help you to determine next steps.
-- **Not sure?** Fill out an intake as though the answer were "Yes". CSS will help you decide.
-
-*Then remove this first heading from this SUPPORT.MD file before publishing your repo.*
-
 # Support
 
-## How to file issues and get help  
+## How to get help
 
-This project uses GitHub Issues to track bugs and feature requests. Please search the existing 
-issues before filing new issues to avoid duplicates.  For new issues, file your bug or 
-feature request as a new Issue.
+This AITP-customized Azure Container Apps Landing Zone for LibreChat deployment is supported through the following channels:
 
-For help and questions about using this project, please **REPO MAINTAINER: INSERT INSTRUCTIONS HERE 
-FOR HOW TO ENGAGE REPO OWNERS OR COMMUNITY FOR HELP. COULD BE A STACK OVERFLOW TAG OR OTHER
-CHANNEL. WHERE WILL YOU HELP PEOPLE?**.
+### GitHub Issues
+For bugs, feature requests, or technical issues:
+1. Search existing [GitHub Issues](https://github.com/YOUR-ORG/aca-landing-zone-accelerator/issues) first
+2. If no existing issue exists, create a new issue with:
+   - Clear description of the problem
+   - Steps to reproduce
+   - Expected vs actual behavior
+   - Terraform version and Azure CLI version
+   - Relevant log outputs
 
-## Microsoft Support Policy  
+### Internal AITP Support
+For AITP team members:
+- Contact the platform team through internal channels
+- For urgent production issues, use the on-call escalation process
 
-Support for this **PROJECT or PRODUCT** is limited to the resources listed above.
+### Community Resources
+- [Azure Container Apps documentation](https://docs.microsoft.com/en-us/azure/container-apps/)
+- [Terraform Azure Provider documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
+- [LibreChat documentation](https://docs.librechat.ai/)
+
+## Support Scope
+
+This repository provides:
+- ✅ Terraform configuration for Azure Container Apps infrastructure
+- ✅ Documentation and deployment guides
+- ✅ Bug fixes for infrastructure deployment issues
+
+This repository does NOT provide:
+- ❌ LibreChat application support (refer to LibreChat documentation)
+- ❌ Azure platform issues (contact Azure support)
+- ❌ General Terraform training or consulting

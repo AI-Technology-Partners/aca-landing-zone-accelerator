@@ -26,23 +26,33 @@ module "vnet" {
   addressSpace         = var.vnetAddressPrefixes
   tags                 = var.tags
   ddosProtectionPlanId = var.ddosProtectionPlanId
-  subnets = [
+  subnets = concat([
     {
       name            = var.gatewaySubnetName
       addressPrefixes = [var.gatewaySubnetAddressPrefix]
-    },
-    {
-      name            = var.azureFirewallSubnetName
-      addressPrefixes = [var.azureFirewallSubnetAddressPrefix]
-    },
-    {
-      name            = var.azureFirewallSubnetManagementName
-      addressPrefixes = [var.azureFirewallSubnetManagementAddressPrefix]
     }
-  ]
+    ], 
+    var.enableFirewall ? [
+      {
+        name            = var.azureFirewallSubnetName
+        addressPrefixes = [var.azureFirewallSubnetAddressPrefix]
+      },
+      {
+        name            = var.azureFirewallSubnetManagementName
+        addressPrefixes = [var.azureFirewallSubnetManagementAddressPrefix]
+      }
+    ] : [],
+    var.enableBastion ? [
+      {
+        name            = "AzureBastionSubnet"
+        addressPrefixes = var.bastionSubnetAddressPrefixes
+      }
+    ] : []
+  )
 }
 
 module "firewall" {
+  count                              = var.enableFirewall ? 1 : 0
   source                             = "../../../../shared/terraform/modules/firewall"
   firewallName                       = module.naming.resourceNames["firewall"]
   location                           = var.location
@@ -57,6 +67,7 @@ module "firewall" {
 }
 
 module "bastion" {
+  count                 = var.enableBastion ? 1 : 0
   source                = "../../../../shared/terraform/modules/bastion"
   vnetName              = module.vnet.vnetName
   vnetResourceGroupName = azurerm_resource_group.hubResourceGroup.name
@@ -79,18 +90,23 @@ module "logAnalyticsWorkspace" {
 module "diagnostics" {
   source                  = "../../../../shared/terraform/modules/diagnostics"
   logAnalyticsWorkspaceId = module.logAnalyticsWorkspace.workspaceId
-  resources = [
-    {
-      type = "firewall-hub"
-      id   = module.firewall.firewallId
-    },
+  resources = concat([
     {
       type = "vnet-hub"
       id   = module.vnet.vnetId
-    },
-    {
-      type = "bastion"
-      id   = module.bastion.bastionHostId
     }
-  ]
+    ],
+    var.enableFirewall ? [
+      {
+        type = "firewall-hub"
+        id   = module.firewall[0].firewallId
+      }
+    ] : [],
+    var.enableBastion ? [
+      {
+        type = "bastion"
+        id   = module.bastion[0].bastionHostId
+      }
+    ] : []
+  )
 }

@@ -1,8 +1,9 @@
-# These owners will be the default owners for everything in
-# this repo. Unless a later match takes precedence,
-# @global-owner1 and @global-owner2 will be requested for
-# review when someone opens a pull request.
-*              @Azure/cae-dai-lza-aca-owners
+# AITP Azure Container Apps Landing Zone for LibreChat
+# Code owners for review of pull requests
 
-# Review of workflows and Devops
-.github/       @Azure/cae-dai-lza-aca-owners
+# Default owners for all files
+*              @AITP/platform-team
+
+# Review of workflows and DevOps configurations  
+.github/       @AITP/platform-team
+terraform/     @AITP/platform-team

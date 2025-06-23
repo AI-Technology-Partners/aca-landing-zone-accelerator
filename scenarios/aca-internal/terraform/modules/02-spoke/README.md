@@ -4,20 +4,20 @@ In the prior step, you deployed the [regional hub](../01-hub/README.md), now you
 
 ## Networking in this architecture
 
-The regional spoke network in which your application platform is laid into acts as the first line of defense for your workload. This network perimeter forms a security boundary where you will restrict the network line of sight into your resources. It also gives your application platform the ability to use private link to talk to adjacent platform-as-a-service resources such as Key Vault and Azure Container Registry. And finally it acts as a layer to restrict and tunnel egressing traffic. All of this adds up to ensure that workload traffic stays as isolated as possible and free from any possible external influence, including other enterprise workloads.
+The regional spoke network in which your application platform is laid into acts as the first line of defense for your workload. This network perimeter forms a security boundary where you will restrict the network line of sight into your resources using Network Security Groups (NSGs). It also gives your application platform the ability to use private link to talk to adjacent platform-as-a-service resources such as Key Vault and Azure Container Registry.
 
 ## Expected results
 
-After executing these steps you'll have the spoke resource group (`rg-lzaaca-spoke-dev-reg`, by default) populated with a virtual network, subnets, and peering to the regional hub. Based on how you [configured the naming and deployment parameters](../../README.md#steps), your result may be slightly different.
-
-![A picture of the networking components in the spoke resource group.](./media/spoke.png)
+After executing these steps you'll have the spoke resource group (`rg-lzaaca-spoke-dev-reg`, by default) populated with a virtual network, subnets, and peering to the regional hub. No VMs are deployed in this simplified configuration.
 
 ### Resources
 
 - Spoke resource group
-- Spoke virtual network
+- Spoke virtual network  
+- Network Security Groups (NSGs) for subnet security
 - Peering to and from the hub
-- Jump box virtual machine (optional)
+- Log Analytics workspace
+- ~~Jump box virtual machine~~ (removed for simplified deployment)
   
 #### Configure Terraform remote state
 

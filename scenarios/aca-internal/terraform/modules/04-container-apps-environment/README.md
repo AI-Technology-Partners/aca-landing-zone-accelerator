@@ -6,8 +6,6 @@ With your [spoke virtual network](../02-spoke/README.md) in place and the [servi
 
 The application platform, Azure Containers Apps, and its logging sinks within Azure Monitor will now be deployed. The workload is not deployed as part of step. Non-mission critical workload lifecycles are usually not tied to the lifecycle of the application platform, and as such are deployed isolated from infrastructure deployments, such as this one. Some cross-cutting concerns and platform feature enablement is usually handled however at this stage.
 
-![A picture of the resources of this architecture, now with the application platform.](./media/container-apps-environment.png)
-
 ### Resources
 
 - Container Apps Environment Environment

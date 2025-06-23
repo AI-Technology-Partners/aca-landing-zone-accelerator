@@ -6,6 +6,7 @@ module "hub" {
   location                                   = var.location
   vnetAddressPrefixes                        = var.hubVnetAddressPrefixes
   enableBastion                              = var.enableBastion
+  enableFirewall                             = var.enableFirewall
   bastionSubnetAddressPrefixes               = var.bastionSubnetAddressPrefixes
   gatewaySubnetAddressPrefix                 = var.gatewaySubnetAddressPrefix
   azureFirewallSubnetAddressPrefix           = var.azureFirewallSubnetAddressPrefix

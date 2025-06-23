@@ -1,9 +1,15 @@
-# Microsoft Open Source Code of Conduct
+# AITP Code of Conduct
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
+This project follows AITP's organizational code of conduct and contribution guidelines.
 
-Resources:
+## Our Standards
 
-- [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/)
-- [Microsoft Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/)
-- Contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with questions or concerns
+- Use welcoming and inclusive language
+- Be respectful of differing viewpoints and experiences
+- Gracefully accept constructive criticism
+- Focus on what is best for the community and LibreChat deployment goals
+- Show empathy towards other community members
+
+## Contact
+
+For questions about this code of conduct or to report issues, please contact the AITP platform team.

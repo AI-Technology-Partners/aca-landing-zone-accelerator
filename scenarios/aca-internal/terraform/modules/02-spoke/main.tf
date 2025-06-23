@@ -72,6 +72,7 @@ resource "azurerm_subnet_network_security_group_association" "agwSecurityGroupAs
 }
 
 module "nsgJumpbox" {
+  count             = var.jumpboxSubnetAddressPrefix != "" ? 1 : 0
   source            = "../../../../shared/terraform/modules/networking/nsg"
   nsgName           = module.naming.resourceNames["vmJumpBoxNsg"]
   location          = var.location
@@ -82,7 +83,7 @@ module "nsgJumpbox" {
 resource "azurerm_subnet_network_security_group_association" "jumpBoxSecurityGroupAssociation" {
   count                     = var.jumpboxSubnetAddressPrefix != "" ? 1 : 0
   subnet_id                 = data.azurerm_subnet.jumpboxSubnet[0].id
-  network_security_group_id = module.nsgJumpbox.nsgId
+  network_security_group_id = module.nsgJumpbox[0].nsgId
 }
 
 
@@ -103,6 +104,7 @@ module "peeringHubToSpoke" {
 }
 
 module "vm" {
+  count                 = var.jumpboxSubnetAddressPrefix != "" ? 1 : 0
   source                = "../../../../shared/terraform/modules/vms"
   osType                = "Linux"
   location              = var.location
@@ -130,16 +132,19 @@ module "logAnalyticsWorkspace" {
 module "diagnostics" {
   source                  = "../../../../shared/terraform/modules/diagnostics"
   logAnalyticsWorkspaceId = module.logAnalyticsWorkspace.workspaceId
-  resources = [
+  resources = concat([
     {
       type = "vnet-spoke"
       id   = module.vnet.vnetId
-    },
-    {
-      type = "vm-jumpbox"
-      id   = module.vm.vmId
     }
-  ]
+    ],
+    var.jumpboxSubnetAddressPrefix != "" ? [
+      {
+        type = "vm-jumpbox"
+        id   = module.vm[0].vmId
+      }
+    ] : []
+  )
 }
 
 data "azurerm_subnet" "infraSubnet" {

@@ -1,23 +1,22 @@
 # Deploy the regional hub
 
-This is the first step in the step-by-step deployment guide for the [Azure Container Apps - Internal environment secure baseline](../../README.md). This hub will be the egress point for all traffic in connected spokes.
+This is the first step in the step-by-step deployment guide for the [Azure Container Apps - Internal environment secure baseline](../../README.md). This hub provides core networking infrastructure for the simplified LibreChat deployment.
 
 ## Networking in this architecture
 
-Egressing your spoke traffic through a hub network (following the hub-spoke model), is a critical component of this architecture. Your organization's networking team will likely have a specific strategy already in place for this; such as a Connectivity subscription already configured for regional egress. In this walkthrough, we are going to implement this recommended strategy in an illustrative manner, however you will need to adjust based on your specific situation when you implement this cluster for production. Hubs are usually a centrally-managed and governed resource in an organization, and not typically workload specific. The steps that follow create the hub (and spokes) as a stand-in for the work that you'd coordinate with your networking team.
+The hub network provides the foundation for the hub-spoke topology used in this simplified architecture. For AITP's LibreChat deployment, the hub contains only essential networking components, with Azure Firewall and Bastion removed to reduce complexity and costs.
 
 ## Expected results
 
-After executing these steps you'll have the hub resource group (`rg-lzaaca-hub-dev-reg`, by default) populated with a regional virtual network, Azure Bastion, and Azure Firewall. Based on how you [configured the naming and deployment parameters](../../README.md#steps), your result may be slightly different. No spokes will have been created yet.
-
-![A picture of the components in the hub resource group.](./media/hub.png)
+After executing these steps you'll have the hub resource group (`rg-lzaaca-hub-dev-reg`, by default) populated with a regional virtual network and Log Analytics workspace. Azure Bastion and Azure Firewall are **not deployed** in this simplified version.
 
 ### Resources
 
-- Hub resource group
+- Hub resource group  
 - Hub virtual network
-- Azure Bastion (optional)
-- Azure Firewall (optional)
+- Log Analytics workspace
+- ~~Azure Bastion~~ (removed for cost savings)
+- ~~Azure Firewall~~ (removed for cost savings - using NSGs instead)
 
 ### IP addressing
 
