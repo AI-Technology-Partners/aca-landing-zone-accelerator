@@ -16,7 +16,7 @@ variable "environment" {
 
 variable "location" {
   type    = string
-  default = "northeurope"
+  default = "eastus2"
 }
 
 variable "hubResourceGroupName" {
@@ -124,7 +124,7 @@ variable "containerAppsSecurityRules" {
       "protocol" : "Udp",
       "sourceAddressPrefix" : "VirtualNetwork",
       "sourcePortRange" : "*",
-      "destinationAddressPrefix" : "AzureCloud.eastus",
+      "destinationAddressPrefix" : "AzureCloud.eastus2",
       "destinationPortRanges" : ["1194"],
       "access" : "Allow",
       "priority" : 100,
@@ -136,7 +136,7 @@ variable "containerAppsSecurityRules" {
       "protocol" : "Tcp",
       "sourceAddressPrefix" : "VirtualNetwork",
       "sourcePortRange" : "*",
-      "destinationAddressPrefix" : "AzureCloud.eastus",
+      "destinationAddressPrefix" : "AzureCloud.eastus2",
       "destinationPortRanges" : ["9000"],
       "access" : "Allow",
       "priority" : 110,
@@ -148,7 +148,7 @@ variable "containerAppsSecurityRules" {
       "protocol" : "Tcp",
       "sourceAddressPrefix" : "VirtualNetwork",
       "sourcePortRange" : "*",
-      "destinationAddressPrefix" : "AzureCloud.eastus",
+      "destinationAddressPrefix" : "AzureCloud.eastus2",
       "destinationPortRanges" : ["443"],
       "access" : "Allow",
       "priority" : 120,

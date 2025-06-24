@@ -17,7 +17,7 @@ variable "environment" {
 
 variable "location" {
   type    = string
-  default = "northeurope"
+  default = "eastus2"
 }
 
 variable "hubResourceGroupName" {}

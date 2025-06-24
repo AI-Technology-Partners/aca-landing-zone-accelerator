@@ -123,7 +123,7 @@ The table below summarizes the available parameters and the possible values that
    | :---- | :---------- | :------ | :--------- |
    | `workloadName` |A suffix that will be used to name resources in a pattern similar to `<resourceAbbreviation>-<applicationName>`. Must be less than 11 characters long, alphanumeric with dashes. | **lzaaca** | **app-svc-01** |
    | `environment` | The short name of the environment. Up to eight characters long. | **dev** | **qa**, **uat**, **prod** |
-   | `location` | The name of the deployment region. | **northeurope** | **eastus**, **westus2**, **eastus2** |
+   | `location` | The name of the deployment region. | **eastus2** | **eastus**, **westus2**, **northeurope** |
    | `tags` | Resource tags that you wish to add to all resources. | *none* | `"value": {`<br>`"Environment": "qa",`<br>`"CostCenter": CS004"`<br>`}` |
    | `enableTelemetry` | Enables or disabled telemetry collection | **true** | **false** |
    | `ddosProtectionPlanId` | ID of DDOS Protection Plan for hub vnet | **none** | **abc123** |
