@@ -1,9 +1,0 @@
-# AITP Azure Container Apps Landing Zone for LibreChat
-# Code owners for review of pull requests
-
-# Default owners for all files
-*              @AITP/platform-team
-
-# Review of workflows and DevOps configurations  
-.github/       @AITP/platform-team
-terraform/     @AITP/platform-team
