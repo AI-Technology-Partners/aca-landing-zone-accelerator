@@ -27,13 +27,24 @@ variable "spokeResourceGroupName" {
   default = ""
 }
 
-variable "tags" {}
+variable "tags" {
+  default = {
+    Organization = "AITP"
+    Purpose      = "LibreChat-Deployment"
+    Architecture = "Simplified"
+  }
+  description = "Resource tags"
+}
 
-variable "hubVnetAddressPrefixes" {}
+variable "hubVnetAddressPrefixes" {
+  default = ["10.0.0.0/24"]
+  description = "Address prefixes for the hub virtual network"
+}
 
 variable "enableBastion" {
-  default = true
+  default = false
   type    = bool
+  description = "Enable Azure Bastion deployment. Set to false to reduce costs (~$140/month savings)"
 }
 
 variable "enableFirewall" {
@@ -42,24 +53,37 @@ variable "enableFirewall" {
   description = "Enable Azure Firewall deployment. Set to false to reduce costs (~$700/month savings)"
 }
 
-variable "bastionSubnetAddressPrefixes" {}
+variable "bastionSubnetAddressPrefixes" {
+  default = ["10.0.0.128/26"]
+  description = "Address prefixes for bastion subnet (only used if enableBastion = true)"
+}
 
-variable "vmSize" {}
+# VM variables (not used in simplified deployment but kept for module compatibility)
+variable "vmSize" {
+  default = "Standard_B2ms"
+  description = "VM size (not used - no VMs deployed in simplified architecture)"
+}
 
 variable "vmAdminUsername" {
   default = "vmadmin"
+  description = "VM admin username (not used - no VMs deployed)"
 }
 
 variable "vmAdminPassword" {
   sensitive = true
-  default   = null
+  default   = "TempPassword123!"
+  description = "VM admin password (not used - no VMs deployed)"
 }
 
-variable "vmLinuxSshAuthorizedKeys" {}
+variable "vmLinuxSshAuthorizedKeys" {
+  default = []
+  description = "SSH keys for Linux VMs (not used - no VMs deployed)"
+}
 
 variable "vmLinuxAuthenticationType" {
   type    = string
   default = "password"
+  description = "VM authentication type (not used - no VMs deployed)"
   validation {
     condition = anytrue([
       var.vmLinuxAuthenticationType == "password",
@@ -71,6 +95,7 @@ variable "vmLinuxAuthenticationType" {
 
 variable "vmJumpboxOSType" {
   default = "Linux"
+  description = "VM OS type (not used - no VMs deployed)"
   validation {
     condition = anytrue([
       var.vmJumpboxOSType == "Linux",
@@ -83,6 +108,7 @@ variable "vmJumpboxOSType" {
 variable "vmSubnetName" {
   default = "snet-jumpbox"
   type    = string
+  description = "VM subnet name (not used - no VMs deployed)"
 }
 
 variable "ddosProtectionPlanId" {
@@ -167,69 +193,19 @@ variable "containerAppsSecurityRules" {
   ]
 }
 
-variable "appGatewaySecurityRules" {
-  default = [
-    {
-      "name" : "HealthProbes",
-      "description" : "Sllow HealthProbes from gateway Manager.",
-      "protocol" : "*",
-      "sourceAddressPrefix" : "GatewayManager",
-      "sourcePortRange" : "*",
-      "destinationAddressPrefix" : "*",
-      "destinationPortRanges" : ["65200-65535"],
-      "access" : "Allow",
-      "priority" : 100,
-      "direction" : "Inbound"
-    },
-    {
-      "name" : "Allow_TLS",
-      "description" : "allow https incoming connections",
-      "protocol" : "*",
-      "sourceAddressPrefix" : "*",
-      "sourcePortRange" : "*",
-      "destinationAddressPrefix" : "*",
-      "destinationPortRanges" : ["443"],
-      "access" : "Allow",
-      "priority" : 110,
-      "direction" : "Inbound"
-    },
-    {
-      "name" : "Allow_HTTP",
-      "description" : "allow http incoming connections",
-      "protocol" : "*",
-      "sourceAddressPrefix" : "*",
-      "sourcePortRange" : "*",
-      "destinationAddressPrefix" : "*",
-      "destinationPortRanges" : ["80"],
-      "access" : "Allow",
-      "priority" : 120,
-      "direction" : "Inbound"
-    },
-    {
-      "name" : "Allow_AzureLoadBalancer",
-      "description" : "allow AzureLoadBalancer incoming connections",
-      "protocol" : "*",
-      "sourceAddressPrefix" : "AzureLoadBalancer",
-      "sourcePortRange" : "*",
-      "destinationAddressPrefix" : "*",
-      "destinationPortRanges" : ["80"],
-      "access" : "Allow",
-      "priority" : 130,
-      "direction" : "Inbound"
-    }
-  ]
-
+variable "vmJumpBoxSubnetAddressPrefix" {
+  default = ""
+  description = "Jumpbox subnet address prefix (empty = no jumpbox deployed)"
 }
 
-
-variable "vmJumpBoxSubnetAddressPrefix" {}
-
 variable "spokeVnetAddressPrefixes" {
-  default = ""
+  default = ["10.1.0.0/22"]
+  description = "Address prefixes for the spoke virtual network"
 }
 
 variable "infraSubnetAddressPrefix" {
-  default = ""
+  default = "10.1.0.0/27"
+  description = "Address prefix for the infrastructure subnet (Container Apps)"
 }
 
 variable "infraSubnetName" {
@@ -241,15 +217,18 @@ variable "privateEndpointsSubnetName" {
 }
 
 variable "privateEndpointsSubnetAddressPrefix" {
-  default = ""
+  default = "10.1.2.0/27"
+  description = "Address prefix for the private endpoints subnet"
 }
 
 variable "applicationGatewaySubnetName" {
   default = "snet-agw"
+  description = "Application Gateway subnet name (not used in simplified deployment)"
 }
 
 variable "applicationGatewaySubnetAddressPrefix" {
   default = ""
+  description = "Application Gateway subnet address prefix (empty = not deployed)"
 }
 
 variable "gatewaySubnetName" {
@@ -257,36 +236,56 @@ variable "gatewaySubnetName" {
   type    = string
 }
 
-variable "gatewaySubnetAddressPrefix" {}
+variable "gatewaySubnetAddressPrefix" {
+  default = "10.0.0.0/27"
+  description = "Address prefix for the gateway subnet in hub"
+}
 
 variable "azureFirewallSubnetName" {
   default = "AzureFirewallSubnet"
   type    = string
+  description = "Azure Firewall subnet name (only used if enableFirewall = true)"
 }
 
-variable "azureFirewallSubnetManagementAddressPrefix" {}
-
-variable "azureFirewallSubnetAddressPrefix" {}
-
-variable "supportingResourceGroupName" {}
-
-variable "aRecords" {}
-
-variable "containerRegistryPullRoleAssignment" {}
-
-variable "keyVaultPullRoleAssignment" {}
-
-variable "appGatewayCertificatePath" {
-  default = "configuration/acahello.demoapp.com.pfx"
+variable "azureFirewallSubnetManagementAddressPrefix" {
+  default = "10.0.0.192/26"
+  description = "Azure Firewall management subnet address prefix (only used if enableFirewall = true)"
 }
 
-variable "appGatewayCertificateKeyName" {}
+variable "azureFirewallSubnetAddressPrefix" {
+  default = "10.0.0.64/26"
+  description = "Azure Firewall subnet address prefix (only used if enableFirewall = true)"
+}
 
-variable "appGatewayFQDN" {}
+variable "supportingResourceGroupName" {
+  default = "supporting-services"
+  description = "Name of the resource group for supporting services (ACR, Key Vault)"
+}
 
-variable "appInsightsName" {}
+variable "aRecords" {
+  default = []
+  description = "A records for private DNS zones"
+}
 
-variable "helloWorldContainerAppName" {}
+variable "containerRegistryPullRoleAssignment" {
+  default = "acrRoleAssignment"
+  description = "Name for the container registry pull role assignment"
+}
+
+variable "keyVaultPullRoleAssignment" {
+  default = "keyVaultRoleAssignment"  
+  description = "Name for the key vault role assignment"
+}
+
+variable "appInsightsName" {
+  default = "appInsightsAca"
+  description = "Name for Application Insights instance"
+}
+
+variable "helloWorldContainerAppName" {
+  default = "ca-hello-world"
+  description = "Name for the hello world container app"
+}
 
 variable "enableTelemetry" {
   type    = bool
@@ -299,7 +298,8 @@ variable "deployHelloWorldSample" {
 }
 
 variable "clientIP" {
-  default = ""
+  default = "0.0.0.0/0"
+  description = "Your computer's IP address for Key Vault access (use 0.0.0.0/0 for testing)"
 }
 
 variable "workloadProfiles" {
@@ -310,6 +310,12 @@ variable "workloadProfiles" {
     minimum_count         = number
     maximum_count         = number
   }))
+  default = [{
+    name                  = "general-purpose"
+    workload_profile_type = "D4"
+    minimum_count         = 1
+    maximum_count         = 3
+  }]
 }
 
 variable "routeSpokeTrafficInternally" {

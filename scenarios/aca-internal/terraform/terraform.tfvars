@@ -36,7 +36,7 @@ enableBastion = false
 infraSubnetName = "snet-infra"
 
 deployHelloWorldSample              = true
-clientIP                            = "<Your computer's IP address>"
+clientIP                            = "0.0.0.0/0" # Allow all IPs for testing - restrict in production
 supportingResourceGroupName         = "supporting-services"
 aRecords                            = []
 containerRegistryPullRoleAssignment = "acrRoleAssignment"

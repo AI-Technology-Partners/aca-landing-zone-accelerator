@@ -57,6 +57,7 @@ resource "azurerm_subnet_network_security_group_association" "privateEndpointSec
 }
 
 module "nsgAppGateway" {
+  count             = var.applicationGatewaySubnetAddressPrefix != "" ? 1 : 0
   source            = "../../../../shared/terraform/modules/networking/nsg"
   nsgName           = module.naming.resourceNames["applicationGatewayNsg"]
   location          = var.location
@@ -68,7 +69,7 @@ module "nsgAppGateway" {
 resource "azurerm_subnet_network_security_group_association" "agwSecurityGroupAssociation" {
   count                     = var.applicationGatewaySubnetAddressPrefix != "" ? 1 : 0
   subnet_id                 = data.azurerm_subnet.appGatewaySubnet[0].id
-  network_security_group_id = module.nsgAppGateway.nsgId
+  network_security_group_id = module.nsgAppGateway[0].nsgId
 }
 
 module "nsgJumpbox" {
@@ -195,16 +196,17 @@ module "routeTable" {
   tags              = var.tags
 
   routes = concat(
-    [{
+    var.firewallPrivateIp != "" ? [{
       name             = "defaultEgressLockdown"
       addressPrefix    = "0.0.0.0/0"
       nextHopType      = "VirtualAppliance"
       nextHopIpAddress = var.firewallPrivateIp
-    },
+    }] : [],
     var.routeSpokeTrafficInternally ? [for i, prefix in var.vnetAddressPrefixes : {
       name            = "spokeInternalTraffic-${i}"
       addressPrefix   = prefix
       nextHopType     = "VnetLocal"
+      nextHopIpAddress = null
     }] : []
-  ])
+  )
 }

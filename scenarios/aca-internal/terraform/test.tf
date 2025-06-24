@@ -1,4 +1,4 @@
-# Configure the Azure provider
+# Simple test configuration
 terraform {
   required_providers {
     azurerm = {
@@ -6,11 +6,13 @@ terraform {
       version = ">= 3.90.0"
     }
   }
-  required_version = ">= 1.3.4"
-
-  # backend "azurerm" {
-  # }
 }
+
 provider "azurerm" {
   features {}
+}
+
+resource "azurerm_resource_group" "test" {
+  name     = "rg-test-terraform"
+  location = "North Europe"
 }
