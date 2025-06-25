@@ -1,18 +1,51 @@
-<!-- BEGIN MICROSOFT SECURITY.MD V0.0.7 BLOCK -->
+# Security Policy
 
-## Security
+## Reporting Security Vulnerabilities
 
-Microsoft takes the security of our software products and services seriously, which includes all source code repositories managed through our GitHub organizations, which include [Microsoft](https://github.com/Microsoft), [Azure](https://github.com/Azure), [DotNet](https://github.com/dotnet), [AspNet](https://github.com/aspnet), [Xamarin](https://github.com/xamarin), and [our GitHub organizations](https://opensource.microsoft.com/).
+AITP takes the security of our infrastructure and applications seriously. If you believe you have found a security vulnerability in this Azure Container Apps Landing Zone for LibreChat, please report it responsibly.
 
-If you believe you have found a security vulnerability in any Microsoft-owned repository that meets [Microsoft's definition of a security vulnerability](https://aka.ms/opensource/security/definition), please report it to us as described below.
+### What to Report
 
-## Reporting Security Issues
+Security vulnerabilities include but are not limited to:
+- Infrastructure misconfigurations that could expose data
+- Authentication or authorization bypasses
+- Injection vulnerabilities in Terraform configurations
+- Exposed secrets or credentials
+- Network security issues
+
+### How to Report
 
 **Please do not report security vulnerabilities through public GitHub issues.**
 
-Instead, please report them to the Microsoft Security Response Center (MSRC) at [https://msrc.microsoft.com/create-report](https://aka.ms/opensource/security/create-report).
+For AITP team members:
+- Use internal security incident reporting channels
+- Contact the security team directly
+- For critical issues, use the security on-call escalation
 
-If you prefer to submit without logging in, send email to [secure@microsoft.com](mailto:secure@microsoft.com).  If possible, encrypt your message with our PGP key; please download it from the [Microsoft Security Response Center PGP Key page](https://aka.ms/opensource/security/pgpkey).
+For external reporters:
+- Email: security@aitp-domain.com (replace with actual domain)
+- Include detailed information about the vulnerability
+- Provide steps to reproduce if applicable
+
+### What to Expect
+
+- Acknowledgment of your report within 2 business days
+- Regular updates on our progress
+- Credit for responsible disclosure (if desired)
+
+## Security Best Practices
+
+This repository implements several security measures:
+- Private networking for all Azure Container Apps
+- Network Security Groups for traffic control
+- Private endpoints for Azure services
+- Managed identities for service authentication
+- Azure Key Vault for secrets management
+- Comprehensive monitoring and logging
+
+## Supported Versions
+
+Only the latest version of this repository is supported for security updates.
 
 You should receive a response within 24 hours. If for some reason you do not, please follow up via email to ensure we received your original message. Additional information can be found at [microsoft.com/msrc](https://aka.ms/opensource/security/msrc). 
 

@@ -5,3 +5,7 @@ output "containerAppsEnvironmentId" {
 output "containerAppsEnvironmentName" {
   value = module.containerAppsEnvironment.containerAppsEnvironmentName
 }
+
+output "containerAppsEnvironmentDefaultDomain" {
+  value = module.containerAppsEnvironment.containerAppsEnvironmentDefaultDomain
+}

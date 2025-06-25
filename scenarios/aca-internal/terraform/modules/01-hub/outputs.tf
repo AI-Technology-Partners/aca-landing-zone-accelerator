@@ -18,5 +18,5 @@ output "hubResourceGroupName" {
 
 output "firewallPrivateIp" {
   description = "The private IP address of the firewall."
-  value       = module.firewall.firewallPrivateIp
+  value       = var.enableFirewall ? module.firewall[0].firewallPrivateIp : ""
 }

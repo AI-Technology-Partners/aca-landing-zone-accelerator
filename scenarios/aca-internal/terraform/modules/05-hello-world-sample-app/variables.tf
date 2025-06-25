@@ -19,5 +19,5 @@ variable "resourceGroupName" {}
 variable "deployApp" {}
 
 variable "workloadProfileName" {
-  type    = string
+  type = string
 }

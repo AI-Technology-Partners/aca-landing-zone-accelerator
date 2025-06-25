@@ -16,7 +16,7 @@ variable "environment" {
 }
 
 variable "location" {
-  type    = string
+  type = string
 }
 
 variable "hubVnetId" {
@@ -95,7 +95,7 @@ variable "vmJumpboxOSType" {
 }
 
 variable "vmLinuxAuthenticationType" {
-  type = string
+  type    = string
   default = "password"
   validation {
     condition = anytrue([
@@ -119,7 +119,7 @@ variable "containerAppsSecurityRules" {
       "protocol" : "Udp",
       "sourceAddressPrefix" : "VirtualNetwork",
       "sourcePortRange" : "*",
-      "destinationAddressPrefix" : "AzureCloud.eastus",
+      "destinationAddressPrefix" : "AzureCloud.eastus2",
       "destinationPortRanges" : ["1194"],
       "access" : "Allow",
       "priority" : 100,
@@ -131,7 +131,7 @@ variable "containerAppsSecurityRules" {
       "protocol" : "Tcp",
       "sourceAddressPrefix" : "VirtualNetwork",
       "sourcePortRange" : "*",
-      "destinationAddressPrefix" : "AzureCloud.eastus",
+      "destinationAddressPrefix" : "AzureCloud.eastus2",
       "destinationPortRanges" : ["9000"],
       "access" : "Allow",
       "priority" : 110,
@@ -143,7 +143,7 @@ variable "containerAppsSecurityRules" {
       "protocol" : "Tcp",
       "sourceAddressPrefix" : "VirtualNetwork",
       "sourcePortRange" : "*",
-      "destinationAddressPrefix" : "AzureCloud.eastus",
+      "destinationAddressPrefix" : "AzureCloud.eastus2",
       "destinationPortRanges" : ["443"],
       "access" : "Allow",
       "priority" : 120,
@@ -246,7 +246,7 @@ variable "firewallPrivateIp" {
 }
 
 variable "routeSpokeTrafficInternally" {
-  type = bool
-  default = false
+  type        = bool
+  default     = false
   description = "Optional, default value is false. If true, the spoke network will route spoke-internal traffic within the spoke network. If false, traffic will be sent to the hub network."
 }

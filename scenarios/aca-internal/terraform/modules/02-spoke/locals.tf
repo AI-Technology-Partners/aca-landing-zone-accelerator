@@ -23,7 +23,7 @@ locals {
     }]
   ) : local.defaultSubnets
 
-  spokeSubnets = var.vmJumpboxOSType != "none" ? concat(
+  spokeSubnets = var.jumpboxSubnetAddressPrefix != "" ? concat(
     local.appGatewayandDefaultSubnets,
     [{
       name            = var.jumpboxSubnetName

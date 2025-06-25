@@ -19,7 +19,7 @@ variable "environment" {
 }
 
 variable "location" {
-  type    = string
+  type = string
 }
 
 variable "spokeVnetId" {

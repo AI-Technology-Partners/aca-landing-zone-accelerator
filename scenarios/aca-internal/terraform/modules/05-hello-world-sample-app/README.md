@@ -40,4 +40,6 @@ terraform apply tfplan
 
 ## Next step
 
-:arrow_forward: [Expose the workload through Application Gateway](../06-application-gateway/README.md)
+The hello-world sample application is now deployed and accessible internally within the container apps environment. In this simplified architecture, no Application Gateway is deployed - the app is accessible through the Container Apps ingress directly.
+
+For production LibreChat deployment, replace this sample app with your LibreChat configuration.
